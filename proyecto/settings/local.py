@@ -2,7 +2,7 @@ from .base import *
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['cc3201.dcc.uchile.cl','localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['grupo09.cc3201.dcc.uchile.cl','localhost', '127.0.0.1']
 
 
 # Database
