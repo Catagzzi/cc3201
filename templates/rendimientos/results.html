@@ -1,0 +1,6 @@
+<!DOCTYPE html>
+    <h1>Regiones con código mayor o igual a {{ codigo }}</h1>
+    {% for region in regiones %}
+        <li>{{ region.nombre }} ({{region.codigo}})</li>
+    {% endfor %}
+</html>

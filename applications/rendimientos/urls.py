@@ -6,8 +6,13 @@ from . import views
 
 urlpatterns = [
     path(
-        'home/',
-        views.Prueba.as_view(),
+        'region',
+        views.region,
+        name = 'region'
+    ),
+    path(
+        '',
+        views.query_1,
         name = 'home'
     ),
 ]

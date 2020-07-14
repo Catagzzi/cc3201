@@ -40,7 +40,7 @@ class Ensenanza(models.Model):
 class Idps(models.Model):
     colegio = models.ForeignKey(Colegios, models.DO_NOTHING, db_column='colegio', blank=True, null=True)
     agno = models.IntegerField(blank=True, null=True)
-    grado = models.CharField(max_length=255, blank=True, null=True)
+    grado = models.CharField(primary_key=True, max_length=255)
     ind_am = models.FloatField(blank=True, null=True)
     ind_cc = models.FloatField(blank=True, null=True)
     ind_pf = models.FloatField(blank=True, null=True)
@@ -70,9 +70,9 @@ class Region(models.Model):
 
 
 class Rendimientos(models.Model):
-    agno = models.IntegerField(primary_key=True)
-    codigo = models.ForeignKey(Region, models.DO_NOTHING, db_column='codigo')
-    digito_verificador = models.IntegerField(blank=True, null=True)
+    agno = models.IntegerField()
+    codigo = models.ForeignKey(Colegios, models.DO_NOTHING, db_column='codigo')
+    digito_verificador = models.IntegerField(primary_key=True)
     nombre = models.CharField(max_length=255, blank=True, null=True)
     region = models.ForeignKey(Region, models.DO_NOTHING, db_column='region', blank=True, null=True)
     provincia = models.ForeignKey(Provincia, models.DO_NOTHING, db_column='provincia', blank=True, null=True)
@@ -165,7 +165,11 @@ class Rendimientos(models.Model):
     prom_asis_rep_hom = models.CharField(max_length=255, blank=True, null=True)
     prom_asis_rep_muj = models.CharField(max_length=255, blank=True, null=True)
 
+    def __str__(self):
+        return f"{self.nombre}-{self.cod_ense} {self.agno}"
+
     class Meta:
         managed = False
-        db_table = 'rendimientos'
+        db_table = 'rendimientos2'
         unique_together = (('agno', 'codigo', 'cod_ense'),)
+
