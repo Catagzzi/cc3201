@@ -27,14 +27,14 @@ class Comuna(models.Model):
         managed = False
         db_table = 'comuna'
 
-
-class Enseanza(models.Model):
+class Ensenanza(models.Model):
     codigo = models.IntegerField(primary_key=True)
     descripcion = models.TextField(blank=True, null=True)
 
     class Meta:
         managed = False
-        db_table = 'enseñanza'
+        db_table = 'ensenanza'
+
 
 
 class Idps(models.Model):
