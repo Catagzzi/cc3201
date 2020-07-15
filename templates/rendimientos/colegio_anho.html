@@ -1,0 +1,7 @@
+<!DOCTYPE html>
+    <h1>Asistencias del colegio {{ codigo }} y año {{ anho }}</h1>
+    {% for asistencia in asistencias %}
+        <li>{{ asistencia.nombre }} ({{asistencia.codigo.codigo}}) {{asistencia.cod_ense}}</li>
+        <li>{{asistencia.prom_asis_apr_hom}} {{asistencia.prom_asis_apr_muj}} {{asistencia.prom_asis_rep_hom}} {{asistencia.prom_asis_rep_muj}} </li>
+    {% endfor %}
+</html>

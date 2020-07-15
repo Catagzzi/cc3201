@@ -1,11 +1,6 @@
 <!DOCTYPE html>
-    Hola cata
-    {% for p in results %}
-        <li>{{p}}</li>
-    {% endfor %}
-    <form method="post">
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="Submit">
-    </form>
+<h1>Inicio</h1>
+<li><a href="/region">Consultar por regiones</a></li>
+<li><a href="/asistencias">Consultar por asistencias</a></li>
+<!-- <li><a href="/LINK_TO_QUERY_3">QUERY_3</a></li> -->
 </html>
