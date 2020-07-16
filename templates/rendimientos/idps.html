@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+    <h1> IDPS de {{nombre}} en el año {{anho}}  </h1>
+    {% for idps in idps_s %}
+    <tr>
+        <li>Curso: {{idps.grado}}</li>
+        <li>Autoestima y Motivacion Escolar: {{idps.ind_am}}</li>
+        <li>Clima de Convivencia Escolar: {{idps.ind_cc}}</li>
+        <li>Participacion y Formacion Ciudadana: {{idps.ind_pf}} </li>
+        <li>Habitos de Vida Saludables: {{idps.ind_hv}} </li>
+    </tr>
+    {% endfor %}
+</html>

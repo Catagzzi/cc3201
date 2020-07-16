@@ -6,11 +6,6 @@ from . import views
 
 urlpatterns = [
     path(
-        'region',
-        views.region,
-        name = 'region'
-    ),
-    path(
         '',
         views.home,
         name = 'home'
@@ -29,5 +24,10 @@ urlpatterns = [
         'rendimientos-cursos',
         views.cursos,
         name = 'rendimientos-cursos'
+    ),
+    path(
+        'idps',
+        views.idps,
+        name = 'idps'
     ),
 ]

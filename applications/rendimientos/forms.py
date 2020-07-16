@@ -1,13 +1,6 @@
 from django import forms
 from .models import Region, Colegios, Rendimientos, RendimientoCurso
 
-class Query1(forms.Form):
-    nombre = forms.CharField(label="Pon tu nonbre aqui pls")
-    curso = forms.IntegerField(label="Curso")
-
-class RegionForm(forms.Form):
-    choices = [(region.codigo, region.nombre) for region in Region.objects.filter()]
-    codigo = forms.ChoiceField(label="Codigo de región", choices=choices)
 
 class AsistenciaForm(forms.Form):
     choices1 = [(colegio.codigo, colegio.nombre) for colegio in Colegios.objects.filter().order_by('nombre')]
@@ -27,3 +20,9 @@ class RendimientosForm(forms.Form):
 class CursosForm(forms.Form):
     choices1 = [(colegio.nombre, colegio.nombre) for colegio in Colegios.objects.filter().order_by('nombre')]
     nombre = forms.ChoiceField(label="Nombre de Colegio", choices=choices1)
+
+class IdpsForm(forms.Form):
+    choices1 = [(colegio.nombre, colegio.nombre) for colegio in Colegios.objects.filter().order_by('nombre')]
+    nombre = forms.ChoiceField(label="Nombre de Colegio", choices=choices1)
+    choices2 = [(año, año) for año in range(2014, 2018)]
+    anho = forms.ChoiceField(label="Año", choices=choices2)

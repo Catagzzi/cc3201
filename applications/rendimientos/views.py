@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from .models import Region, Rendimientos, RendimientoCurso
-from .forms import Query1, RegionForm, AsistenciaForm, RendimientosForm,CursosForm
+from .models import Region, Rendimientos, RendimientoCurso, Idps
+from .forms import   AsistenciaForm, RendimientosForm, CursosForm, IdpsForm
 from django.http import HttpResponseRedirect
 
 
@@ -8,27 +8,6 @@ def home(request):
     return render(request, 'home/home.html')
 
 
-def region(request):
-    if request.method == 'POST':
-        form = RegionForm(request.POST)
-        codigo = form.data['codigo']
-        query = f"SELECT * FROM region WHERE codigo >= {codigo}"
-        regiones = Region.objects.raw(query)
-        # en python:
-        # regiones = Region.objects.filter(codigo__gte=codigo)
-        context = {
-            'regiones': regiones,
-            'codigo': codigo
-        }
-        return render(request, 'rendimientos/results.html', context)
-    else:
-        form = RegionForm()
-        nombre_form = "Formulario Región"
-        context = {
-            'form': form,
-            'nombre_form': nombre_form
-        }
-        return render(request, 'rendimientos/ingreso.html', context)
 
 def asistencias(request):
     if request.method == 'POST':
@@ -111,3 +90,35 @@ def cursos(request):
             'nombre_form': nombre_form
         }
         return render(request, 'rendimientos/cursos_form.html', context)
+
+
+
+def idps(request):
+    if request.method == 'POST':
+        form = IdpsForm(request.POST)
+        nombre = form.data['nombre']
+        anho = form.data['anho']
+        query = f"""SELECT cd.codigo as codigo, cd.nombre as nombre,
+        cd.comuna_nombre as comuna, agno, grado,
+        ind_am ,
+        ind_cc ,
+        ind_pf ,
+        ind_hv 
+        FROM idps JOIN colegios_detalle cd ON cd.codigo = idps.colegio
+        WHERE cd.nombre LIKE '{nombre}' 
+        AND agno={anho};"""
+        idps_s = Idps.objects.raw(query)
+        context = {
+            'idps_s': idps_s,
+            'nombre': nombre,
+            'anho': anho
+        }
+        return render(request, 'rendimientos/idps.html', context)
+    else:
+        form = IdpsForm()
+        nombre_form = "Formulario idps"
+        context = {
+            'form': form,
+            'nombre_form': nombre_form
+        }
+        return render(request, 'rendimientos/idps_form.html', context)
