@@ -25,4 +25,9 @@ urlpatterns = [
         views.rendimientos,
         name = 'rendimientos'
     ),
+    path(
+        'rendimientos-cursos',
+        views.cursos,
+        name = 'rendimientos-cursos'
+    ),
 ]

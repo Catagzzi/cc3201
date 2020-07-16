@@ -23,3 +23,7 @@ class RendimientosForm(forms.Form):
     choices3 = [(Tipo.nivel_ensenanza , Tipo.nivel_ensenanza) for Tipo in RendimientoCurso.objects.filter().distinct('nivel_ensenanza')]
     nivel = forms.ChoiceField(label="Curso(1-8 para basica, 1-4 para media", choices=choices3)
 
+
+class CursosForm(forms.Form):
+    choices1 = [(colegio.nombre, colegio.nombre) for colegio in Colegios.objects.filter().order_by('nombre')]
+    nombre = forms.ChoiceField(label="Nombre de Colegio", choices=choices1)

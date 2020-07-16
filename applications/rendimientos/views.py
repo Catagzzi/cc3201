@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Region, Rendimientos, RendimientoCurso
-from .forms import Query1, RegionForm, AsistenciaForm, RendimientosForm
+from .forms import Query1, RegionForm, AsistenciaForm, RendimientosForm,CursosForm
 from django.http import HttpResponseRedirect
 
 
@@ -83,3 +83,31 @@ def rendimientos(request):
             'nombre_form': nombre_form
         }
         return render(request, 'rendimientos/rendimientos_form.html', context)
+
+
+def cursos(request):
+    if request.method == 'POST':
+        form = CursosForm(request.POST)
+        nombre = form.data['nombre']
+        query = f"""SELECT cd.codigo as codigo, cd.nombre as nombre,
+        cd.comuna_codigo as comuna, agno as id,
+        ROUND(SUM(rc.apr_hom*rc.n_apr_hom)/NULLIF(SUM(rc.n_apr_hom), 0), 3) as aprhom,
+        ROUND(SUM(rc.apr_muj*rc.n_apr_muj)/NULLIF(SUM(rc.n_apr_muj), 0), 3) as aprmuj
+        FROM rendimiento_curso rc
+        JOIN colegios_detalle cd ON rc.codigo = cd.codigo
+        WHERE cd.nombre LIKE '{nombre}'
+        GROUP BY cd.codigo, cd.nombre, cd.comuna_codigo, agno;"""
+        rends_cursos = RendimientoCurso.objects.raw(query)
+        context = {
+            'rendimientos': rends_cursos,
+            'nombre': nombre
+        }
+        return render(request, 'rendimientos/rendimientos_cursos.html', context)
+    else:
+        form = CursosForm()
+        nombre_form = "Formulario Rendimientos"
+        context = {
+            'form': form,
+            'nombre_form': nombre_form
+        }
+        return render(request, 'rendimientos/cursos_form.html', context)

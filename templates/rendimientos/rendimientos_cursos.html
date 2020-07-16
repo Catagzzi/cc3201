@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+    <h1>Rendimientos promediados de todos los cursos  </h1>
+    <h2>{{nombre}}</h2>
+    <table>
+    <tr>
+        <td>Año</td>
+        <td>Comuna</td>
+        <td>Aprobación Promedio Hombres</td>
+        <td>Aprobación Promedio Mujeres</td>
+    </tr>
+    {% for rendimiento in rendimientos %}
+    <tr>
+        <td>{{rendimiento.id}}</td>
+        <td>{{rendimiento.comuna.nombre}}</td>
+        <td>{{rendimiento.aprhom}} </td>
+        <td>{{rendimiento.aprmuj}} </td>
+    </tr>
+    {% endfor %}
+    </table>
+</html>
