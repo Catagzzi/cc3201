@@ -14,9 +14,10 @@ def asistencias(request):
         form = AsistenciaForm(request.POST)
         codigo = form.data['codigo']
         anho = form.data['anho']
-        query = f"""SELECT  digito_verificador, nombre, agno, codigo, cod_ense, prom_asis_apr_hom, prom_asis_apr_muj, prom_asis_rep_hom, prom_asis_rep_muj 
-        FROM rendimientos2 WHERE codigo={codigo} AND agno={anho}"""
-        asistencias = Rendimientos.objects.raw(query)
+        query = """SELECT  digito_verificador, nombre, agno, codigo, cod_ense, 
+        prom_asis_apr_hom, prom_asis_apr_muj, prom_asis_rep_hom, prom_asis_rep_muj 
+        FROM rendimientos2 WHERE codigo=%s AND agno=%s"""
+        asistencias = Rendimientos.objects.raw(query, [codigo,anho])
         context = {
             'asistencias': asistencias,
             'codigo': codigo,
@@ -39,14 +40,14 @@ def rendimientos(request):
         nombre = form.data['nombre']
         tipo = form.data['tipo']
         nivel = form.data['nivel']
-        query = f"""SELECT id, cd.codigo as codigo, cd.nombre as nombre,
+        query = """SELECT id, cd.codigo as codigo, cd.nombre as nombre,
         cd.comuna_nombre as comuna, agno, curso, apr_hom, apr_muj 
         FROM rendimiento_curso rc 
         JOIN colegios_detalle cd ON rc.codigo = cd.codigo
-        WHERE tipo_ensenanza = {tipo}
-        AND nivel_ensenanza = {nivel} 
-        AND cd.nombre LIKE ('{nombre}');"""
-        rendimientos = RendimientoCurso.objects.raw(query)
+        WHERE tipo_ensenanza = %s
+        AND nivel_ensenanza = %s 
+        AND cd.nombre LIKE (%s);"""
+        rendimientos = RendimientoCurso.objects.raw(query, [tipo,nivel,nombre])
         context = {
             'rendimientos': rendimientos,
             'nombre': nombre,
@@ -68,15 +69,15 @@ def cursos(request):
     if request.method == 'POST':
         form = CursosForm(request.POST)
         nombre = form.data['nombre']
-        query = f"""SELECT cd.codigo as codigo, cd.nombre as nombre,
+        query = """SELECT cd.codigo as codigo, cd.nombre as nombre,
         cd.comuna_codigo as comuna, agno as id,
         ROUND(SUM(rc.apr_hom*rc.n_apr_hom)/NULLIF(SUM(rc.n_apr_hom), 0), 3) as aprhom,
         ROUND(SUM(rc.apr_muj*rc.n_apr_muj)/NULLIF(SUM(rc.n_apr_muj), 0), 3) as aprmuj
         FROM rendimiento_curso rc
         JOIN colegios_detalle cd ON rc.codigo = cd.codigo
-        WHERE cd.nombre LIKE '{nombre}'
+        WHERE cd.nombre LIKE %s
         GROUP BY cd.codigo, cd.nombre, cd.comuna_codigo, agno;"""
-        rends_cursos = RendimientoCurso.objects.raw(query)
+        rends_cursos = RendimientoCurso.objects.raw(query, [nombre])
         context = {
             'rendimientos': rends_cursos,
             'nombre': nombre
@@ -98,16 +99,16 @@ def idps(request):
         form = IdpsForm(request.POST)
         nombre = form.data['nombre']
         anho = form.data['anho']
-        query = f"""SELECT cd.codigo as codigo, cd.nombre as nombre,
+        query = """SELECT cd.codigo as codigo, cd.nombre as nombre,
         cd.comuna_nombre as comuna, agno, grado,
         ind_am ,
         ind_cc ,
         ind_pf ,
         ind_hv 
         FROM idps JOIN colegios_detalle cd ON cd.codigo = idps.colegio
-        WHERE cd.nombre LIKE '{nombre}' 
-        AND agno={anho};"""
-        idps_s = Idps.objects.raw(query)
+        WHERE cd.nombre LIKE %s 
+        AND agno= %s ;"""
+        idps_s = Idps.objects.raw(query, [nombre,anho])
         context = {
             'idps_s': idps_s,
             'nombre': nombre,
