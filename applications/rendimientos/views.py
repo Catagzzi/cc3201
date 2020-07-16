@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from .models import Region, Rendimientos
-from .forms import Query1, RegionForm, AsistenciaForm
+from .models import Region, Rendimientos, RendimientoCurso
+from .forms import Query1, RegionForm, AsistenciaForm, RendimientosForm
 from django.http import HttpResponseRedirect
 
 
@@ -52,3 +52,34 @@ def asistencias(request):
             'nombre_form': nombre_form
         }
         return render(request, 'rendimientos/ingreso.html', context)
+
+
+def rendimientos(request):
+    if request.method == 'POST':
+        form = RendimientosForm(request.POST)
+        nombre = form.data['nombre']
+        tipo = form.data['tipo']
+        nivel = form.data['nivel']
+        query = f"""SELECT id, cd.codigo as codigo, cd.nombre as nombre,
+        cd.comuna_nombre as comuna, agno, curso, apr_hom, apr_muj 
+        FROM rendimiento_curso rc 
+        JOIN colegios_detalle cd ON rc.codigo = cd.codigo
+        WHERE tipo_ensenanza = {tipo}
+        AND nivel_ensenanza = {nivel} 
+        AND cd.nombre LIKE ('{nombre}');"""
+        rendimientos = RendimientoCurso.objects.raw(query)
+        context = {
+            'rendimientos': rendimientos,
+            'nombre': nombre,
+            'tipo': tipo,
+            'nivel': nivel
+        }
+        return render(request, 'rendimientos/rendimientos.html', context)
+    else:
+        form = RendimientosForm()
+        nombre_form = "Formulario Rendimientos"
+        context = {
+            'form': form,
+            'nombre_form': nombre_form
+        }
+        return render(request, 'rendimientos/rendimientos_form.html', context)

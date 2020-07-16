@@ -20,4 +20,9 @@ urlpatterns = [
         views.asistencias,
         name = 'asistencias'
     ),
+    path(
+        'rendimientos',
+        views.rendimientos,
+        name = 'rendimientos'
+    ),
 ]

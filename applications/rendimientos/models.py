@@ -173,3 +173,90 @@ class Rendimientos(models.Model):
         db_table = 'rendimientos2'
         unique_together = (('agno', 'codigo', 'cod_ense'),)
 
+
+## Vistas materializadas
+
+
+class TipoEnsenanzas(models.Model):
+    codigo = models.IntegerField(blank=True, null=True)
+    tipo_ensenanza = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'tipo_ensenanzas'
+
+class RendimientoAprobacion(models.Model):
+    id = models.IntegerField(primary_key= True)
+    codigo = models.ForeignKey(Colegios, models.DO_NOTHING, db_column='codigo', blank=True, null=True)
+    nombre = models.CharField(max_length=255, blank=True, null=True)
+    agno = models.IntegerField()
+    tipo_ensenanza = models.IntegerField()
+    region = models.ForeignKey(Region, models.DO_NOTHING, db_column='region', blank=True, null=True)
+    provincia = models.ForeignKey(Provincia, models.DO_NOTHING, db_column='provincia', blank=True, null=True)
+    comuna = models.ForeignKey(Comuna, models.DO_NOTHING, db_column='comuna', blank=True, null=True)
+    apr_hom_01 = models.IntegerField(blank=True, null=True)
+    apr_hom_02 = models.IntegerField(blank=True, null=True)
+    apr_hom_03 = models.IntegerField(blank=True, null=True)
+    apr_hom_04 = models.IntegerField(blank=True, null=True)
+    apr_hom_05 = models.IntegerField(blank=True, null=True)
+    apr_hom_06 = models.IntegerField(blank=True, null=True)
+    apr_hom_07 = models.IntegerField(blank=True, null=True)
+    apr_hom_08 = models.IntegerField(blank=True, null=True)
+    apr_muj_01 = models.IntegerField(blank=True, null=True)
+    apr_muj_02 = models.IntegerField(blank=True, null=True)
+    apr_muj_03 = models.IntegerField(blank=True, null=True)
+    apr_muj_04 = models.IntegerField(blank=True, null=True)
+    apr_muj_05 = models.IntegerField(blank=True, null=True)
+    apr_muj_06 = models.IntegerField(blank=True, null=True)
+    apr_muj_07 = models.IntegerField(blank=True, null=True)
+    apr_muj_08 = models.IntegerField(blank=True, null=True)
+    n_apr_hom_01 = models.IntegerField(blank=True, null=True)
+    n_apr_hom_02 = models.IntegerField(blank=True, null=True)
+    n_apr_hom_03 = models.IntegerField(blank=True, null=True)
+    n_apr_hom_04 = models.IntegerField(blank=True, null=True)
+    n_apr_hom_05 = models.IntegerField(blank=True, null=True)
+    n_apr_hom_06 = models.IntegerField(blank=True, null=True)
+    n_apr_hom_07 = models.IntegerField(blank=True, null=True)
+    n_apr_hom_08 = models.IntegerField(blank=True, null=True)
+    n_apr_muj_01 = models.IntegerField(blank=True, null=True)
+    n_apr_muj_02 = models.IntegerField(blank=True, null=True)
+    n_apr_muj_03 = models.IntegerField(blank=True, null=True)
+    n_apr_muj_04 = models.IntegerField(blank=True, null=True)
+    n_apr_muj_05 = models.IntegerField(blank=True, null=True)
+    n_apr_muj_06 = models.IntegerField(blank=True, null=True)
+    n_apr_muj_07 = models.IntegerField(blank=True, null=True)
+    n_apr_muj_08 = models.IntegerField(blank=True, null=True)
+    
+    def __str__(self):
+        return f"self.nombre"
+
+    class Meta:
+        managed = False
+        db_table = 'rendimiento_aprobacion'
+
+class RendimientoCurso(models.Model):
+    codigo = models.ForeignKey(Colegios, models.DO_NOTHING, db_column='codigo', blank=True, null=True)
+    nombre = models.CharField(max_length=255, blank=True, null=True)
+    comuna = models.ForeignKey(Comuna, models.DO_NOTHING, db_column='comuna', blank=True, null=True)
+    agno = models.IntegerField()
+    tipo_ensenanza = models.IntegerField()
+    nivel_ensenanza = models.IntegerField()
+    curso = models.CharField(max_length=255)
+    apr_hom = models.IntegerField(blank=True, null=True)
+    apr_muj = models.IntegerField(blank=True, null=True)
+    n_apr_hom = models.IntegerField(blank=True, null=True)
+    n_apr_muj = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'rendimiento_curso'
+
+class ColegiosDetalle(models.Model):
+    codigo = models.ForeignKey(Colegios, models.DO_NOTHING, db_column='colegio', blank=True, null=True)
+    nombre = models.CharField(max_length=255, blank=True, null=True)
+    comuna_codigo = models.ForeignKey('Comuna', models.DO_NOTHING, db_column='comuna', blank=True, null=True)
+    comuna_nombre = models.CharField(max_length=255, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'colegios_detalle'

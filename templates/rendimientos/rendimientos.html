@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+    <h1>Rendimientos del colegio {{ nombre }}, tipo de enseñanza {{ tipo }} y curso tipo {{nivel}} </h1>
+    {% for rendimiento in rendimientos %}
+        <li>{{ rendimiento.codigo.codigo }} ({{rendimiento.nombre}}) {{asistencia.comuna.nombre}}</li>
+        <li>{{rendimiento.agno}} </li>
+        <li>{{rendimiento.curso}} </li>
+        <li>{{rendimiento.apr_hom}} </li>
+        <li>{{rendimiento.apr_muj}} </li>
+    {% endfor %}
+</html>
