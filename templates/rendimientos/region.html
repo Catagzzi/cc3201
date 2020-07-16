@@ -1,11 +1,5 @@
 <!DOCTYPE html>
-    <h1>Formulario de Región</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ region_form }}
-        <input type="submit" value="Submit">
-    </form>
-    <h1>Formulario de asistencia por colegio y año</h1>
+    <h1 style="text-align:center">{{nombre_form}}</h1>
     <form method="post">
         {% csrf_token %}
         {{ asistencia_form }}

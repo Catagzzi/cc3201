@@ -1,10 +1,28 @@
-<!DOCTYPE html>
-    <h1>Rendimientos del colegio {{ nombre }}, tipo de enseñanza {{ tipo }} y curso tipo {{nivel}} </h1>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %}
+    Aprobación General    
+{% endblock titulo %}
+
+{% block cuerpo %}
+
+    <h1 style="text-align:center">Aprobación Detallada por Año  </h1>
+    <h3>Colegio: {{ nombre }} </h3>
+    <h3>Tipo de enseñanza: {{ tipo }}</h3>
+    <h3>Curso: {{nivel}}</h3>
     {% for rendimiento in rendimientos %}
-        <li>{{ rendimiento.codigo.codigo }} ({{rendimiento.nombre}}) {{asistencia.comuna.nombre}}</li>
-        <li>{{rendimiento.agno}} </li>
-        <li>{{rendimiento.curso}} </li>
-        <li>{{rendimiento.apr_hom}} </li>
-        <li>{{rendimiento.apr_muj}} </li>
+        <div class="card" style="width: 300px;">
+            <div class="card-divider">
+            <h4>{{rendimiento.agno}}</h4>
+            </div>
+            <div class="card-section">
+            <p>Aprobación Hombres: {{rendimiento.apr_hom}}</p>
+            <p>Aprobación Mujeres: {{rendimiento.apr_muj}}</p>
+            </div>
+        </div>
     {% endfor %}
-</html>
+
+{% endblock cuerpo %}
+
+

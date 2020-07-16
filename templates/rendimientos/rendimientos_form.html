@@ -1,8 +1,12 @@
 <!DOCTYPE html>
-    <h1>{{nombre_form}}</h1>
-    <form method="post">
+    <h1 style="text-align:center">{{nombre_form}}</h1>
+    <h3>Por favor seleccione un colegio, un nivel de enseñanza y un curso.</h3>
+    <form method="post" novalidate>
         {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="Submit">
+        <table border="1">
+          {{ form }}
+        </table>
+        <button type="submit">Submit</button>
     </form>
 </html>
+

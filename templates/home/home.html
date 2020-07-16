@@ -1,7 +1,24 @@
-<!DOCTYPE html>
-<h1>Inicio</h1>
-<li><a href="/asistencias">Consultar por asistencias</a></li>
-<li><a href="/rendimientos">Consultar por rendimientos</a></li> 
-<li><a href="/rendimientos-cursos">Consultar por rendimientos de todos los cursos</a></li> 
-<li><a href="/idps">Consultar por idps </a></li> 
-</html>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %}
+    Proyecto cc3201    
+{% endblock titulo %}
+
+
+{% block cuerpo %}
+{% include 'includes/header.html' %}
+<h1 style="text-align:center"> Análisis de Colegios </h1>
+
+<ul class="vertical menu align-center">
+    <li><a href="/asistencias">Consultar por asistencias</a></li>
+    <li><a href="/rendimientos-cursos">Consultar por Aprobación por Género</a></li>
+    <li><a href="/rendimientos">Consultar por Aprobación Detallada</a></li>
+    <li><a href="/idps">Consultar por idps</a></li>
+</ul>
+
+{% include 'includes/footer.html' %}
+{% endblock cuerpo %}
+
+
+

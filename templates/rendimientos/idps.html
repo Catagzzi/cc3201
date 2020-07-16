@@ -1,12 +1,25 @@
-<!DOCTYPE html>
-    <h1> IDPS de {{nombre}} en el año {{anho}}  </h1>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %}
+    Consulta IDPS    
+{% endblock titulo %}
+{% block cuerpo %}
+<h1 style="text-align:center"> Consulta de IDPS </h1>
+<h3>Colegio: {{nombre}}</h3>
+<h3>Año: {{anho}}</h3>
     {% for idps in idps_s %}
-    <tr>
-        <li>Curso: {{idps.grado}}</li>
-        <li>Autoestima y Motivacion Escolar: {{idps.ind_am}}</li>
-        <li>Clima de Convivencia Escolar: {{idps.ind_cc}}</li>
-        <li>Participacion y Formacion Ciudadana: {{idps.ind_pf}} </li>
-        <li>Habitos de Vida Saludables: {{idps.ind_hv}} </li>
-    </tr>
+    <div class="callout secondary">
+        <h5>
+            <tr>
+                <li>Curso: {{idps.grado}}</li>
+                <li>Autoestima y Motivacion Escolar: {{idps.ind_am}}</li>
+                <li>Clima de Convivencia Escolar: {{idps.ind_cc}}</li>
+                <li>Participacion y Formacion Ciudadana: {{idps.ind_pf}} </li>
+                <li>Habitos de Vida Saludables: {{idps.ind_hv}} </li>
+            </tr>
+        </h5>
+    </div>
     {% endfor %}
-</html>
+{% endblock cuerpo %}
+
