@@ -101,10 +101,10 @@ def idps(request):
         anho = form.data['anho']
         query = """SELECT cd.codigo as codigo, cd.nombre as nombre,
         cd.comuna_nombre as comuna, agno, grado,
-        ind_am ,
-        ind_cc ,
-        ind_pf ,
-        ind_hv 
+        ROUND(ind_am::decimal,3) as ind_am,
+        ROUND(ind_cc::decimal,3) as ind_cc ,
+        ROUND(ind_pf::decimal,3) as ind_pf,
+        ROUND(ind_hv::decimal,3) as ind_hv
         FROM idps JOIN colegios_detalle cd ON cd.codigo = idps.colegio
         WHERE cd.nombre LIKE %s 
         AND agno= %s ;"""
